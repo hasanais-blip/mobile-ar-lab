@@ -100,9 +100,28 @@
       const topPanel = document.querySelector('#top-panel');
       const runButton = document.querySelector('#run-button');
       const statusButton = document.querySelector('#status-button');
+      const speedButton = document.querySelector('#speed-button');
 
       let running = true;
       let warning = false;
+      let fastMode = false;
+
+      speedButton.addEventListener('click', () => {
+      
+          fastMode = !fastMode;
+      
+          const speed = fastMode ? 440 : 220;
+      
+          shaft.setAttribute(
+              'spin-control',
+              `axis: y; speed: ${speed}; active: ${running}`
+          );
+      
+          speedButton.textContent =
+              fastMode ? 'Normal Speed' : 'x2 Speed';
+      
+      });
+
 
       marker.addEventListener('markerFound', () => {
         topPanel.innerHTML = 'พบ Hiro Marker แล้ว — โมเดลมอเตอร์พร้อมใช้งาน<span class="hint">แตะปุ่มด้านล่างเพื่อทดลองควบคุม</span>';
@@ -148,6 +167,7 @@
   <div id="controls">
     <button id="run-button" type="button">หยุดมอเตอร์</button>
     <button id="status-button" type="button">จำลองคำเตือน</button>
+    <button id="speed-button" type="button">x2 Speed</button>
   </div>
 
   <a-scene
